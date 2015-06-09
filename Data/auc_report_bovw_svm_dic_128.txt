@@ -1,0 +1,47 @@
+Loading Arff file BoW_Dictionary_128.arff
+Load complete!!
+Problem Classes:
+acara-bandeira                 0
+acara-bandeira-marmorizado     1
+acara-disco                    2
+barbus-ouro                    3
+barbus-sumatra                 4
+beta                           5
+carpa                          6
+carpa-media                    7
+dourado                        8
+kinguio                        9
+kinguio-cometa-calico         10
+kinguio-korraco               11
+mato-grosso                   12
+molinesia-preta               13
+oscar                         14
+oscar-albino                  15
+pacu                          16
+palhaco                       17
+papagaio                      18
+paulistinha                   19
+piau-tres-pintas              20
+platy-laranja                 21
+platy-rubi                    22
+platy-sangue                  23
+telescopio                    24
+tetra-negro                   25
+tricogaster                   26
+tucunare                      27
+dtype: int64
+SVC(C=1.89990321417, cache_size=2000, class_weight=None, coef0=0.0, degree=3,
+  gamma=0.352451217831, kernel=rbf, max_iter=-1, probability=True,
+  random_state=None, shrinking=True, tol=0.001, verbose=False)
+
+Runing acara-bandeira class vc All....
+Runing acara-bandeira-marmorizado class vc All....
+Runing acara-disco class vc All....
+Runing barbus-ouro class vc All....
+Runing barbus-sumatra class vc All....
+Runing beta class vc All....
+Runing carpa class vc All....
+Runing carpa-media class vc All....
+Runing dourado class vc All....
+Runing kinguio class vc All....
+Runing kinguio-cometa-calico class vc All....

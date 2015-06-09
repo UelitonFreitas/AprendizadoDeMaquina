@@ -1,0 +1,189 @@
+from scipy.io.arff import loadarff
+from scipy.io import arff
+from pandas import *
+from sklearn import svm
+from sklearn import preprocessing
+from sklearn.cross_validation import KFold
+from sklearn.grid_search import GridSearchCV
+from sklearn.metrics import classification_report
+from sklearn.svm import SVC
+from sklearn.metrics import precision_score
+from sklearn.metrics import recall_score
+from sklearn.metrics import auc
+from sklearn.svm import SVC
+from sklearn.grid_search import GridSearchCV, RandomizedSearchCV
+
+class ReadArff(object):
+    """ Esta classe le um arquivo arff que pode conter qualquer quantidade
+        de atributos. Contudo, o atributo classe deve ser nomeado com o nome
+        class.
+    
+        Atributes:
+            data: contem os dados das amostras vindos do arff.
+            meta: contem o cabecalho do arquivo arff.
+            dataFrame: contem os dados do aquivo no formato DataFrame
+            utilizados nos classificadores
+            classes: contem a lista de classes encontradas no arff
+            mapping: contem o mapa das classes
+            scaled_data: contem os valores das amostras normalizados"""
+    
+    _dataFrame = None
+    _data = None
+    _meta = None
+    _classes = None
+    _mapping = None
+    
+    def __init__(self,f):
+        """Inicia ReadArff e le um arquivo arff
+        
+            Le um arquivo arff e armazena os dados lidos.
+            Ao termino da inicializacao o atributo data da classe contera os
+            valores de todos os atributos exceto o atributo classe
+            O atributo classe por usa vez estara contido na variavem classes
+            
+            Args:
+                f: Nome do arquivo.
+                
+            Returns:
+                nada.
+        """
+        
+        print 'Loading Arff file %s' % (f)
+        self._data,self._meta = arff.loadarff(f)
+        print 'Load complete!!'
+        print
+        
+        self._dataFrame = DataFrame(self._data)
+        #s recebe as classes encontradas no problema (unicamente)
+        #mapping e um mapa que atribui um indice a cada classe
+        #Por exemplo: Acara:0,Dourado:1,...
+        self._classes = self._dataFrame['class']
+        s = np.unique(self._classes)
+        self._mapping = Series([x[0] for x in enumerate(s)], index = s)
+        
+        print "Problem Classes:"
+        print self._mapping
+        print
+        
+        #self._classes agora contem as classes de todas as amostras
+        #por exemplo:
+        # amostra 1 : Dourado
+        # amostra 2 : Dourado
+        # amostra 3 : Acara
+        self._classes = self._classes.map(self._mapping)
+        
+        #Deleta a coluna das classes das amostras. Assim os dados podem ser
+        #utilizados no treinamento.
+        #A partir de agora self._dataFrame contem todas as amostras com todos
+        #os atributos ecxeto o atributo classe
+        del self._dataFrame['class']
+        
+        #Normaliza os valores dos atributos
+        
+    def scale_data(self):
+        if self._data != None:
+            self._scaled_data = preprocessing.scale(self._dataFrame)
+        else:
+            print "First load the dataset!!"
+    
+    def get_data_frame(self):
+        """Retorna os valores dos atributos no formato dataFrame"""
+        return np.array(self._dataFrame)
+    
+    def get_data(self):
+        """Retorna os valores dos atributos"""
+        return np.array(self._data)
+    
+    def get_meta(self):
+        """Retorna o cabecalho do arquivo arff"""
+        return self._meta
+    
+    def get_classes(self):
+        return np.array(self._classes)
+    
+    def get_scaled_data(self):
+        """Retorna os valores dos atributos normalizados"""
+        return self._scaled_data
+    
+    
+
+def main():
+    """Main do programa"""
+    
+    arffReader = ReadArff('fish_Dic64.arff')
+    #clf = svm.SVC(gamma=0.001, C=100.)
+    
+    #Conjuntos de treinamento e testes
+    X_train = X_test = y_train = y_test = None
+    
+    X = arffReader.get_data_frame()
+    y = arffReader.get_classes()
+    
+    #Metodo de validacao cruzada com 10 foldse embaralhando as amostras
+    kfold = KFold(len(X), n_folds = 10, shuffle = True)
+    
+    #Divite o conjunto de treinamento em conjunto de teste
+    #fornecidos pela validacao cruzada.
+    #X_train contem as amostras de treinamento e X_test as amostras de teste
+    #y_train contem as classes das amostras de treinamento e y_test de classe
+    for train,test in kfold:
+        X_train, X_test = X[train], X[test]
+        y_train, y_test = y[train], y[test]
+    
+   # Set the parameters by cross-validation
+    tuned_parameters = {'kernel': ['rbf','linear'], 'gamma': [1e-3, 1e-4],'C': [1, 10, 100, 1000],
+                    'kernel': ['linear'], 'C': [1, 10, 100, 1000]}
+    svm = SVC()
+
+    scores = [
+        ('precision', precision_score),
+        ('recall', recall_score),
+        #('roc_auc', auc)
+    ]
+
+    for score_name, score_func in scores:
+        print "# Tuning hyper-parameters for %s" % score_name
+        print
+    
+        clf =  RandomizedSearchCV(svm, tuned_parameters,scoring = score_name)
+        clf.fit(X_train, y_train)
+    
+        print "Best parameters set found on development set:"
+        print
+        print clf.best_estimator_
+        print
+        print "Grid scores on development set:"
+        print
+        for params, mean_score, scores in clf.grid_scores_:
+            print "%0.3f (+/-%0.03f) for %r" % (
+                mean_score, scores.std() / 2, params)
+        print
+    
+        print "Detailed classification report:"
+        print
+        print "The model is trained on the full development set."
+        print "The scores are computed on the full evaluation set."
+        print
+        y_true, y_pred = y_test, clf.predict(X_test)
+        print classification_report(y_true, y_pred)
+        print
+        
+        print
+        print clf.score(X_test,y_test)
+        
+
+
+    #clf = GridSearchCV(SVC(C=1), tuned_parameters, cv=5, scoring=score)
+    #clf.fit(X_train, y_train)
+    
+    #clf.fit(X[:-1],y[:-1])
+    #print clf.predict(X[-1])
+    
+    #print arffReader.get_data()
+    #print arffReader.get_scaled_data()
+    #print arffReader.get_meta()
+    #print arffReader.get_classes()
+    
+
+if __name__ == '__main__':
+    main()

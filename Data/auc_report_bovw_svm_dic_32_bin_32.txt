@@ -1,0 +1,97 @@
+Loading Arff file BoCW_Dictionary_32_bin_32.arff
+Load complete!!
+Problem Classes:
+acara-bandeira                 0
+acara-bandeira-marmorizado     1
+acara-disco                    2
+barbus-ouro                    3
+barbus-sumatra                 4
+beta                           5
+carpa                          6
+carpa-media                    7
+dourado                        8
+kinguio                        9
+kinguio-cometa-calico         10
+kinguio-korraco               11
+mato-grosso                   12
+molinesia-preta               13
+oscar                         14
+oscar-albino                  15
+pacu                          16
+palhaco                       17
+papagaio                      18
+paulistinha                   19
+piau-tres-pintas              20
+platy-laranja                 21
+platy-rubi                    22
+platy-sangue                  23
+telescopio                    24
+tetra-negro                   25
+tricogaster                   26
+tucunare                      27
+dtype: int64
+SVC(C=1568.98475118, cache_size=2000, class_weight=None, coef0=0.0, degree=3,
+  gamma=5.09251813636e-05, kernel=linear, max_iter=-1, probability=True,
+  random_state=None, shrinking=True, tol=0.001, verbose=False)
+
+Runing acara-bandeira class vc All....
+Runing acara-bandeira-marmorizado class vc All....
+Runing acara-disco class vc All....
+Runing barbus-ouro class vc All....
+Runing barbus-sumatra class vc All....
+Runing beta class vc All....
+Runing carpa class vc All....
+Runing carpa-media class vc All....
+Runing dourado class vc All....
+Runing kinguio class vc All....
+Runing kinguio-cometa-calico class vc All....
+Runing kinguio-korraco class vc All....
+Runing mato-grosso class vc All....
+Runing molinesia-preta class vc All....
+Runing oscar class vc All....
+Runing oscar-albino class vc All....
+Runing pacu class vc All....
+Runing palhaco class vc All....
+Runing papagaio class vc All....
+Runing paulistinha class vc All....
+Runing piau-tres-pintas class vc All....
+Runing platy-laranja class vc All....
+Runing platy-rubi class vc All....
+Runing platy-sangue class vc All....
+Runing telescopio class vc All....
+Runing tetra-negro class vc All....
+Runing tricogaster class vc All....
+Runing tucunare class vc All....
+                            AUC
+
+            acara-bandeira  0.977525
+acara-bandeira-marmorizado  0.992172
+               acara-disco  0.993687
+               barbus-ouro  0.932071
+            barbus-sumatra  0.987121
+                      beta  0.994949
+                     carpa  0.990657
+               carpa-media  0.968434
+                   dourado  0.994697
+                   kinguio  0.961364
+     kinguio-cometa-calico  0.991414
+           kinguio-korraco  0.994444
+               mato-grosso  0.980808
+           molinesia-preta  0.985101
+                     oscar  0.994949
+              oscar-albino  0.994949
+                      pacu  0.993687
+                   palhaco  0.914899
+                  papagaio  0.992677
+               paulistinha  0.958333
+          piau-tres-pintas  0.979798
+             platy-laranja  0.979545
+                platy-rubi  0.943687
+              platy-sangue  0.985606
+                telescopio  0.970455
+               tetra-negro  0.956566
+               tricogaster  0.983838
+                  tucunare  0.994949
+
+                 Avg/total  0.978157
+
