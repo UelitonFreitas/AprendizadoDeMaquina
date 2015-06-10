@@ -155,6 +155,8 @@ foi fornecida a matriz de confusão do experimento. Para encontrar os melhores p
 cruzada contendo 10 dobras e 10 repetições. Para gerar a matriz de confusão a validação cruzada foi novamente aplicada
 utilizando o classificador otimizado.
 
+Ao término da execução também é gerado um pdf contendo um gráfico da matriz de confusão gerada para cada experimento.
+
 # Instalação
 
 ## Antes de executar os programas é necessáiro instalar algumas dependências:
