@@ -158,7 +158,9 @@ utilizando o classificador otimizado.
 Ao término da execução também é gerado um pdf contendo um gráfico da matriz de confusão gerada para cada experimento.
 
 ## Gerar gráfico da AUC com Medida-F
-O script  svm_auc_report.py gera um gráfico roc de um classificador SVM. O gráfico é gerado utilizando a técnica 1 vs Todos (1xall) com validação cruzada de 10 partições e repetições. O gráfico mostrado contém a curva e AUC de cada classe e a média das mesmas.
+O script  svm_auc_report.py gera um gráfico roc de um classificador SVM. O gráfico é gerado utilizando a técnica 1 vs Todos (1xall) com validação cruzada de 10 partições e repetições. O gráfico mostrado contém a curva e AUC de cada classe e a média das mesmas. A figura a seguir ilustra os resultados obtidos a partir da execução do script citado.
+
+![alt tag](https://github.com/UelitonFreitas/classificadores/blob/master/figure_1.png)
 
 # Instalação
 
